@@ -22,36 +22,33 @@
 
             set
             {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    if (value.Length == 6)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (!char.IsLetter(value[i]))
-                                throw new ArgumentException("Inkorrekt registreringsnummer: De första tre tecknen måste vara bokstäver.");
-                        }
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Ett registreringsnummer måste anges.");
 
-                        for (int i = 3; i < 6; i++)
-                        {
-                            if (i < 5)
-                            {
-                                if (!char.IsDigit(value[i]))
-                                    throw new ArgumentException("Inkorrekt registreringsnummer: Det fjärde och femte tecknet måste vara siffror.");
-                            }
-                            else
-                            {
-                                if (!char.IsDigit(value[i]) && !char.IsLetter(value[i]))
-                                    throw new ArgumentException("Inkorrekt registreringsnummer: Det sjätte tecknet måste vara en siffra eller en bokstav.");
-                            }
-                        }
+                string text = value.Trim();
+
+                if (text.Length != 6)
+                    throw new ArgumentException("Inkorrekt registreringsnummer: det måste bestå av exakt 6 tecken, tre bokstäver följt av två siffror och en siffra eller bokstav.");
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (!char.IsLetter(text[i]))
+                        throw new ArgumentException("Inkorrekt registreringsnummer: De första tre tecknen måste vara bokstäver.");
+                }
+
+                for (int i = 3; i < 3; i++)
+                {
+                    if (i<5)
+                    {
+                        if (!char.IsDigit(text[i]))
+                            throw new ArgumentException("Inkorrekt registreringsnummer: Det fjärde och femte tecknet måste vara siffror.");
+                    }
+                    else
+                    {
+                        if (!char.IsDigit(text[i]) && !char.IsLetter(text[i]))
+                            throw new ArgumentException("Inkorrekt registreringsnummer: Det sjätte tecknet måste vara en siffra eller en bokstav.");
                     }
                 }
-                else
-                {
-                    throw new ArgumentException("Ett registreringsnummer måste bestå av exakt 6 tecken, med tre bokstäver följt av två siffror och en siffra eller bokstav.");
-                }
-
                 registrationNumber = value.ToUpper();
             }
         }
