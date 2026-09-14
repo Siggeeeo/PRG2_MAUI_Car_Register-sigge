@@ -64,7 +64,13 @@
         public string Model
         {
             get { return model; }
-            set { this.model = value; }
+
+            set {
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Model måste anges.");
+
+                this.model = value.Trim();
+            }
         }
 
         //TODO Modell ska valideras, sparas i objektet och visas i UI
