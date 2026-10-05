@@ -4,18 +4,16 @@ namespace PRG_MAUI_Car_Register
     class Vehicle
     {
         // Medlemsvariabler
-        public enum Type { Bil, MC, Lastbil };
+        
         public const int FirstProductionYear = 1895;
-        private Type vehicleType;
         private string registrationNumber = string.Empty;
         private string manufacturer = string.Empty;
         private string model = string.Empty;
         private int year;
 
         // Konstruktor (en metod med samma namn som klassen, som returnerar ett objekt)
-        public Vehicle(Type vehicleType) // en konstruktor kan, men måste inte, ta parametrar
+        public Vehicle() // en konstruktor kan, men måste inte, ta parametrar
         {
-            this.vehicleType = vehicleType;
         }
 
         // Get-Set för att hålla variablerna privata, och för att validera inkommande värden från UI (user interface, användargränssnittet)
@@ -33,7 +31,7 @@ namespace PRG_MAUI_Car_Register
                 if (text.Length != 6)
                     throw new ArgumentException("Inkorrekt registreringsnummer: det måste bestå av exakt 6 tecken, tre bokstäver följt av två siffror och en siffra eller bokstav.");
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 3; i < 6; i++)
                 {
                     if (!char.IsLetter(text[i]))
                         throw new ArgumentException("Inkorrekt registreringsnummer: De första tre tecknen måste vara bokstäver.");
@@ -52,17 +50,11 @@ namespace PRG_MAUI_Car_Register
                             throw new ArgumentException("Inkorrekt registreringsnummer: Det sjätte tecknet måste vara en siffra eller en bokstav.");
                     }
                 }
-                registrationNumber = value.ToUpper();
+                registrationNumber = text.ToUpper();
             }
         }
 
-        // Fordonstyp tas in från dropdown-menyn, och behöver därför inte valideras
-        public Type VehicleType
-        {
-            get { return vehicleType; }
-            set { this.vehicleType = value; }
-        }
-
+        
         //TODO Tillverkare ska valideras, sparas i objektet och visas i UI
         public string Model
         {
@@ -161,7 +153,7 @@ namespace PRG_MAUI_Car_Register
         //TODO Modifiera overriden på ToString() så att allt visas som önskat i UIs listBox
         public override string ToString()
         {
-            return this.registrationNumber + "\t" + this.vehicleType + "\t" +
+            return this.registrationNumber + "\t" +
                    this.manufacturer + "\t" + this.model + "\t" + this.year;
         }
     }
