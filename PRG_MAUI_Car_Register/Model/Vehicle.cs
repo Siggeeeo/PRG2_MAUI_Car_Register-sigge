@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-namespace PRG_MAUI_Car_Register
+namespace PRG_MAUI_Car_Register.Model
 {
    abstract class Vehicle
     {
@@ -12,7 +12,7 @@ namespace PRG_MAUI_Car_Register
         private int year;
 
         // Konstruktor (en metod med samma namn som klassen, som returnerar ett objekt)
-        protected Vehicle() // en konstruktor kan, men måste inte, ta parametrar
+        protected Vehicle()
         {
         }
 
@@ -149,8 +149,8 @@ namespace PRG_MAUI_Car_Register
             return text;
         }
 
+        public abstract string GetDescription();
 
-        //TODO Modifiera overriden på ToString() så att allt visas som önskat i UIs listBox
         public override string ToString()
         {
             return this.registrationNumber + "\t" +
