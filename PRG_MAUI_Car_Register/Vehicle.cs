@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 namespace PRG_MAUI_Car_Register
 {
-    class Vehicle
+   abstract class Vehicle
     {
         // Medlemsvariabler
         
@@ -12,7 +12,7 @@ namespace PRG_MAUI_Car_Register
         private int year;
 
         // Konstruktor (en metod med samma namn som klassen, som returnerar ett objekt)
-        public Vehicle() // en konstruktor kan, men måste inte, ta parametrar
+        protected Vehicle() // en konstruktor kan, men måste inte, ta parametrar
         {
         }
 
