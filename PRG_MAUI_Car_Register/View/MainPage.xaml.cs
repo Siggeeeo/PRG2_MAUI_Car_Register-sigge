@@ -1,15 +1,18 @@
-﻿using PRG_MAUI_Car_Register.Model;
+﻿using System.Collections.ObjectModel;
+using PRG_MAUI_Car_Register.Model;
+
 
 namespace PRG_MAUI_Car_Register.View
 {
     public partial class MainPage : ContentPage
     {
-        List<Vehicle> vehicleList = new List<Vehicle>();
+        ObservableCollection<Vehicle> vehicleList = new ObservableCollection<Vehicle>();
 
         public MainPage()
         {
             InitializeComponent();
             pickerType.SelectedIndex = 0;
+            listViewVehicles.ItemsSource = vehicleList;
         }
 
         private void OnRegisterClicked(object sender, EventArgs e)
@@ -38,8 +41,7 @@ namespace PRG_MAUI_Car_Register.View
                 vehicle.Year = Vehicle.ParseYear(entryYear.Text);
 
                 vehicleList.Add(vehicle);
-                listViewVehicles.ItemsSource = null;
-                listViewVehicles.ItemsSource = vehicleList;
+                radioAll.IsChecked = true;
 
                 ClearTextFields();
             }
@@ -53,25 +55,25 @@ namespace PRG_MAUI_Car_Register.View
 
         private void OnRadioCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            IEnumerable<Vehicle> FilteredList;
+            IEnumerable<Vehicle> filteredList;
 
             if (radioCar.IsChecked)
             {
-                FilteredList = vehicleList.OfType<Car>();
+                filteredList = vehicleList.OfType<Car>();
             }
             else if (radioMC.IsChecked)
             {
-                FilteredList = vehicleList.OfType<Mc>();
+                filteredList = vehicleList.OfType<Mc>();
             }
             else if (radioTruck.IsChecked)
             {
-                FilteredList = vehicleList.OfType<Truck>();
+                filteredList = vehicleList.OfType<Truck>();
             }
             else
             {
-                FilteredList= vehicleList;
+                filteredList= vehicleList;
             }
-            listViewVehicles.ItemsSource= FilteredList;
+            listViewVehicles.ItemsSource= filteredList;
 
         }
 
@@ -92,7 +94,7 @@ namespace PRG_MAUI_Car_Register.View
                 string type = foundVehicle switch
                 {
                 Car => "Bil",
-                Mc => "Mc",
+                Mc => "MC",
                 Truck => "Lastbil",
                 _ => "Okänt"
                 };
