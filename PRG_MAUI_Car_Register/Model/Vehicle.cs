@@ -54,8 +54,7 @@ namespace PRG_MAUI_Car_Register.Model
             }
         }
 
-        
-        //TODO Tillverkare ska valideras, sparas i objektet och visas i UI
+
         public string Model
         {
             get { return model; }
@@ -65,7 +64,6 @@ namespace PRG_MAUI_Car_Register.Model
             }
         }
 
-        //TODO Modell ska valideras, sparas i objektet och visas i UI
         public string Manufacturer
         {
             get { return manufacturer; }
@@ -93,7 +91,6 @@ namespace PRG_MAUI_Car_Register.Model
             
         }
 
-        //TODO Lägg till möjligheten att spara realistisk årsmodell, validera, spara och visa i objektet och visas i UI. Tips: Regex.IsMatch()
         public int Year
         {
             get { return year; }
@@ -150,6 +147,8 @@ namespace PRG_MAUI_Car_Register.Model
         }
 
         public abstract string GetDescription();
+
+        public abstract string GetExtraInfo-();
 
         public override string ToString()
         {
