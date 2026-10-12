@@ -153,8 +153,7 @@ namespace PRG_MAUI_Car_Register.Model
 
         public override string ToString()
         {
-            return this.registrationNumber + "\t" +
-                   this.manufacturer + "\t" + this.model + "\t" + this.year;
+           return GetDescription();
         }
     }
 }
