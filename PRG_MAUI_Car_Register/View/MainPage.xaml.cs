@@ -19,24 +19,10 @@ namespace PRG_MAUI_Car_Register.View
         {
             try
             {
-                Vehicle vehicle;
-                switch (pickerType.SelectedIndex)
-                {
-                    case 0:
-                        vehicle = new Car();
-                        break;
-                    case 1:
-                        vehicle = new Mc();
-                        break;
-                    case 2:
-                        vehicle = new Truck();
-                        break;
-                    default:
-                        throw new ArgumentException("Välj en fordonstyp.");
-                }
+                
+                Vehicle vehicle = CreateVehicle(pickerType.SelectedIndex, entryManufacturer.Text);
 
-                vehicle.RegistrationNumber = entryRegistrationNumber.Text; ;
-                vehicle.Manufacturer = entryManufacturer.Text;
+                vehicle.RegistrationNumber = entryRegistrationNumber.Text;
                 vehicle.Model = entryModel.Text;
                 vehicle.Year = Vehicle.ParseYear(entryYear.Text);
 
@@ -46,7 +32,7 @@ namespace PRG_MAUI_Car_Register.View
                 ClearTextFields();
             }
 
-            // här "fångas" eventuella felmeddelanden från Vehicle
+          
             catch (ArgumentException ex)
             {
                 DisplayAlert("Fel", ex.Message, "OK");
@@ -99,7 +85,7 @@ namespace PRG_MAUI_Car_Register.View
                 _ => "Okänt"
                 };
 
-                labelSearchResult.Text = labelSearchResult.Text = $"Fordon hittat:\n" +
+               labelSearchResult.Text = $"Fordon hittat:\n" +
                          $"Registreringsnummer: {foundVehicle.RegistrationNumber}\n" +
                          $"Tillverkare: {foundVehicle.Manufacturer}\n" +
                          $"Modell: {foundVehicle.Model}\n" +
@@ -113,7 +99,25 @@ namespace PRG_MAUI_Car_Register.View
             }
 
         }
+        private Vehicle CreateVehicle(int typeIndex, string manufacturer)
+        {
+            if (String.IsNullOrWhiteSpace(manufacturer))
+                throw new ArgumentException("Tillverkare måste anges.");
 
+            string brand = manufacturer.Trim().ToLower();
+
+            return (typeIndex, brand) switch
+            {
+                (0, "volvo") => new Volvo(),
+                (0, "fiat") => new Fiat(),
+                (1, "yamaha") => new Yamaha(),
+                (1, "honda") => new Honda(),
+                (2, "scania") => new Scania(),
+                (2, "iveco") => new Iveco(),
+                _ => throw new ArgumentException(
+                    "Okänd tillverkare för vald typ. Bil: Volvo, Fiat. MC: Yamaha, Honda. Lastbil: Scania, Iveco.")
+            };
+        }
         private void ClearTextFields()
         {
             entryRegistrationNumber.Text = string.Empty;
