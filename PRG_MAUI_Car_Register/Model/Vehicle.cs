@@ -68,7 +68,7 @@ namespace PRG_MAUI_Car_Register.Model
         {
             get { return manufacturer; }
 
-            set {
+            protected set {
                 string text = ValidateText(value, "Tillverkare");
 
                 bool hasLetter = false;
@@ -148,7 +148,7 @@ namespace PRG_MAUI_Car_Register.Model
 
         public abstract string GetDescription();
 
-        public abstract string GetExtraInfo-();
+        public abstract string GetExtraInfo();
 
         public override string ToString()
         {
