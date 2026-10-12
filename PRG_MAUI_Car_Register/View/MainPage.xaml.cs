@@ -53,30 +53,26 @@ namespace PRG_MAUI_Car_Register.View
 
         private void OnRadioCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            if (e.Value != true) return;
-
-            // Skapa en temporär filtrerad lista baserat på vilken radioknapp som är vald
-            List<Vehicle> filteredList;
+            IEnumerable<Vehicle> FilteredList;
 
             if (radioCar.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.Bil).ToList();
+                FilteredList = vehicleList.OfType<Car>();
             }
             else if (radioMC.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.MC).ToList();
+                FilteredList = vehicleList.OfType<Mc>();
             }
             else if (radioTruck.IsChecked)
             {
-                filteredList = vehicleList.Where(v => v.VehicleType == Vehicle.Type.Lastbil).ToList();
+                FilteredList = vehicleList.OfType<Truck>();
             }
             else
             {
-                // Om "Alla" är vald, visa hela listan
-                filteredList = vehicleList;
+                FilteredList= vehicleList;
             }
+            listViewVehicles.ItemsSource= FilteredList;
 
-            listViewVehicles.ItemsSource = filteredList;
         }
 
         private void OnSearchClicked(object sender, EventArgs e)
@@ -93,11 +89,19 @@ namespace PRG_MAUI_Car_Register.View
 
             if (foundVehicle != null)
             {
+                string type = foundVehicle switch
+                {
+                Car => "Bil",
+                Mc => "Mc",
+                Truck => "Lastbil",
+                _ => "Okänt"
+                };
+
                 labelSearchResult.Text = $"Fordon hittat:\n" +
                                          $"Registreringsnummer: {foundVehicle.RegistrationNumber}\n" +
                                          $"Tillverkare: {foundVehicle.Manufacturer}\n" +
                                          $"Modell: {foundVehicle.Model}\n" +
-                                         $"Typ: {foundVehicle.VehicleType}";
+                                        $"Typ: {type}";
             }
             else
             {
