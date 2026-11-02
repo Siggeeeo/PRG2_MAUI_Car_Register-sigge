@@ -1,6 +1,6 @@
 ﻿namespace PRG_MAUI_Car_Register.Model
 {
-    class Truck : Vehicle
+    abstract class Truck : Vehicle
     {
 
         private double loadCapacity = 10;
@@ -12,12 +12,16 @@
                 loadCapacity = value;
             }
         }
-        public Truck() : base()
+        protected Truck() : base()
         {
         }
         public override string GetDescription()
         {
             return RegistrationNumber + "\t" + "Lastbil" + "\t" + Manufacturer + "\t" + Model + "\t" + Year;
+        }
+        public override string GetExtraInfo()
+        {
+            return "Lastkapacitet: " + LoadCapacity + " ton";
         }
     }
 }

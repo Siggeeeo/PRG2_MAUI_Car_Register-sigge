@@ -1,6 +1,6 @@
 ﻿namespace PRG_MAUI_Car_Register.Model
 {
-    class Mc : Vehicle
+    abstract class Mc : Vehicle
     {
         private string category = "Standard";
 
@@ -15,12 +15,16 @@
                 category = value;
             }
         }
-        public Mc() : base()
+        protected Mc() : base()
         {
         }
         public override string GetDescription()
         {
             return RegistrationNumber + "\t" + "Mc" + "\t" + Manufacturer + "\t" + Model + "\t" + Year;
+        }
+        public override string GetExtraInfo()
+        {
+            return "Kategori: " + Category;
         }
     }
 }

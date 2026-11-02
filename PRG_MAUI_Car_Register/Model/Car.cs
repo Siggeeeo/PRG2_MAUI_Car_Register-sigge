@@ -1,6 +1,6 @@
 ﻿namespace PRG_MAUI_Car_Register.Model
 {
-    class Car : Vehicle
+    abstract class Car : Vehicle
     {
         private int doors = 5;
 
@@ -14,12 +14,15 @@
                 doors = value;
             }
         }
-        public Car(): base()
+        protected Car(): base()
         {
         }
         public override string GetDescription()
         {
             return RegistrationNumber + "\t" + "Bil" + "\t" + Manufacturer + "\t" + Model + "\t" + Year; 
+
         }
+        public override string GetExtraInfo()
+        { return "Dörrar: " + Doors; }
     }
 }
